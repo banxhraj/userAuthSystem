@@ -1,0 +1,27 @@
+import express from 'express';
+import cors from 'cors';
+import 'dotenv/config';
+import cookieParser from 'cookie-parser';
+import connectDB from './db/db.js';
+import authRouter from '../routes/authRooutes.js';
+
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+connectDB();
+
+app.use(express.json());
+app.use(cors({credentials: true}));
+app.use(cookieParser());
+
+//Api endpoints
+app.get('/', (req, res) => {
+  res.send('Welcome to the User Authentication API');   
+});
+
+app.use('/api/auth',authRouter);
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
