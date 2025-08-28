@@ -78,6 +78,24 @@ const Resetpassword = () => {
     }
   }
 
+  const onSubmitOTP = async (e)=>{
+    e.preventDefault();
+    const otpArray = inputRefs.current.map(e=> e.value)
+    setOtp(otpArray.join(''))
+    setIsOtpSubmited(true)
+  }
+
+  const onSubmitNewPassword = async (e) => {
+    e.preventDefault();
+    try {
+      const {data} = await axios.post(backendUrl + '/api/auth/reset-password',{email, otp, newPassword})
+      data.success ? toast.success(data.message) : toast.error(data.message)
+      data.success && navigate('/login')
+    } catch (error) {
+      
+    }
+  }
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-200 to-purple-400 ">
       <img
@@ -115,7 +133,7 @@ const Resetpassword = () => {
 otp input form */}
 
 {!isOtpSubmited && isEmailSent && 
-      <form className="bg-slate-900 p-8 rounded-lg shadow-lg w-96 text-sm">
+      <form onSubmit={onSubmitOTP} className="bg-slate-900 p-8 rounded-lg shadow-lg w-96 text-sm">
         <h1 className="text-white text-2xl font-semibold text-center mb-4">
           Reset Password OTP
         </h1>
@@ -146,7 +164,7 @@ otp input form */}
 
       {/* enter new password */}
       {isOtpSubmited && isEmailSent && 
-      <form className="bg-slate-900 p-8 rounded-lg shadow-lg w-96 text-sm">
+      <form onSubmit={onSubmitNewPassword} className="bg-slate-900 p-8 rounded-lg shadow-lg w-96 text-sm">
         <h1 className="text-white text-2xl font-semibold text-center mb-4">
           New Password
         </h1>

@@ -11,6 +11,7 @@ const Verify = () => {
     useContext(AppContent);
   const navigate = useNavigate();
   const inputRefs = React.useRef([]);
+  
 
   const handleInput = (e, index) => {
     if (e.target.value.length > 0 && index < inputRefs.current.length - 1) {
