@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 4000;
 connectDB();
  
 
-const allowedOrigins = ['http://localhost:5173','https://user-auth-system-ikus.vercel.app/'];
+const allowedOrigins = ['http://localhost:5173','https://user-auth-system-ikus.vercel.app'];
 
 app.use(express.json());
 app.use(cors({origin: allowedOrigins, credentials: true}));
